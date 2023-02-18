@@ -7,26 +7,28 @@ class Actions {
         this.client = client;
     }
     private async playClock(channels: VoiceChannel[], hour: number, analogHour: number){
-        let files = [__dirname  + `/audio/${analogHour}.opus`];
-        if(hour == 12)
-            files.push(__dirname  + `/audio/Bal.opus`);
-        if(hour == 0 || hour == 24)
-            files.push(__dirname  + `/audio/Pies.opus`);
         for(let channel of channels){
             if((await getMembers(channel)).length == 0)
                 continue;
-            await playAudio(this.client, channel, files);
+            await playAudio(this.client, channel, __dirname  + `/audio/${analogHour}.opus`);
+        }
+        for(let channel of channels){
+            if((await getMembers(channel)).length == 0)
+                continue;
+            if(hour == 12)
+                await playAudio(this.client, channel, __dirname  + `/audio/Bal.opus`);
+            else if (hour == 0 || hour == 24)
+            await playAudio(this.client, channel, __dirname  + `/audio/Pies.opus`);
             await leaveChannel(this.client, channel);
         }
     }
     
 
     private async playPopeHour(channels: VoiceChannel[]){
-        let files = [__dirname  + `/audio/Barka.opus`];
         for(let channel of channels){
             if((await getMembers(channel)).length == 0)
                 continue;
-            await playAudio(this.client, channel, files);
+            await playAudio(this.client, channel, __dirname  + `/audio/Barka.opus`);
             await leaveChannel(this.client, channel);
         }
     }

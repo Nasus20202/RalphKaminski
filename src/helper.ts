@@ -38,7 +38,7 @@ async function getMembers(channel: VoiceChannel) : Promise<GuildMember[]>{
     return members;
 }
 
-async function playAudio(client: Client, channel: VoiceChannel, audio: string[]){
+async function playAudio(client: Client, channel: VoiceChannel, audio: string){
     const connection = joinVoiceChannel({
         channelId: channel.id,
         guildId: channel.guild.id,
@@ -46,12 +46,13 @@ async function playAudio(client: Client, channel: VoiceChannel, audio: string[])
     });
     const player = createAudioPlayer();
     connection.subscribe(player);
-    for(let file of audio){
-        const resource = await createAudioResource(file);
-        player.play(resource);
-        while(player.state.status != "idle"){
-            await new Promise(resolve => setTimeout(resolve, 500));
-        }
+    const resource = await createAudioResource(audio);
+    while(player.state.status != "idle"){
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    player.play(resource);
+    while(player.state.status != "idle"){
+        await new Promise(resolve => setTimeout(resolve, 500));
     }
 }
 

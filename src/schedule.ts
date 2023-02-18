@@ -6,10 +6,10 @@ const schedule = require('node-schedule');
 class Schedule {
     client: Client;
     actions: Actions;
-    constructor(client: Client){
+    constructor(client: Client) {
         this.client = client;
         this.actions = new Actions(client);
-        schedule.scheduleJob('0,10,20,30,40,50 * * * * *', async () => {
+        schedule.scheduleJob('0 * * * *', async () => {
             await this.actions.clock();
         });
         let rule = new schedule.RecurrenceRule();

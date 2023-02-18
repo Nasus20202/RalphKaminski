@@ -7,6 +7,7 @@ class Actions {
         this.client = client;
     }
     private async playClock(channels: VoiceChannel[], hour: number, analogHour: number){
+        analogHour = 1;
         for(let channel of channels){
             if((await getMembers(channel)).length == 0)
                 continue;
@@ -18,7 +19,7 @@ class Actions {
             if(hour == 12)
                 await playAudio(this.client, channel, __dirname  + `/audio/Bal.opus`);
             else if (hour == 0 || hour == 24)
-            await playAudio(this.client, channel, __dirname  + `/audio/Pies.opus`);
+                await playAudio(this.client, channel, __dirname  + `/audio/Pies.opus`);
             await leaveChannel(this.client, channel);
         }
     }

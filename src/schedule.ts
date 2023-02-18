@@ -9,15 +9,15 @@ class Schedule {
     constructor(client: Client){
         this.client = client;
         this.actions = new Actions(client);
-        schedule.scheduleJob('* * * * * *', () => {
-            this.actions.clock();
+        schedule.scheduleJob('* * * * * *', async () => {
+            await this.actions.clock();
         });
         let rule = new schedule.RecurrenceRule();
         rule.hour = 21;
         rule.minute = 37;
         rule.tz = 'Europe/Warsaw';
-        schedule.scheduleJob(rule, () => {
-            this.actions.popeHour();
+        schedule.scheduleJob(rule, async () => {
+            await this.actions.popeHour();
         });
     }
 }

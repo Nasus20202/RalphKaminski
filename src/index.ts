@@ -1,5 +1,5 @@
 // Require the necessary discord.js classes
-const { Client, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Events, GatewayIntentBits, ActivityType } = require('discord.js');
 const { token } = require('./config.json');
 const { Schedule } = require('./schedule');
 
@@ -11,6 +11,19 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.once(Events.ClientReady, (c: any) => {
 	console.log(`Logged in as ${c.user.tag}`);
 	const schedule = new Schedule(c);
+	let update = 1;
+	setInterval(async () => {
+		if(update > 3)
+			update = 1;
+		let activity = "";
+		for(let i = 0; i < update; i++){
+			activity += "Hau";
+			if(i < update - 1)
+				activity += " ";
+		}
+		c.user.setActivity(activity, { type: ActivityType.Listening });
+		update++;
+	}, 4000);
 });
 
 // Log in to Discord with your client's token

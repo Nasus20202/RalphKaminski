@@ -6,11 +6,19 @@ class Actions {
         this.client = client;
     }
 
-    clock(){
-        console.log(new Date());
+    private getGuilds(){
+        return this.client.guilds.cache;
     }
 
-    popeHour(){
+    public async clock(){
+        let hour = new Date().getHours();
+        let analogHour = hour % 12;
+        if(analogHour == 0)
+            analogHour = 12;
+        console.log(analogHour);
+    }
+
+    public async popeHour(){
         console.log("It's Pope Hour!");
     }
 }

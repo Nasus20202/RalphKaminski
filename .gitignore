@@ -1,5 +1,18 @@
+# Yarn
+.yarn
+.yarnrc.yml
+.yarnrc
+.yarn-integrity
+yarn.lock
+
 # Config file
 config.json
+
+# npm
+node_modules/
+package-lock.json
+npm-debug.log*
+npm-debug.log
 
 # Logs
 logs

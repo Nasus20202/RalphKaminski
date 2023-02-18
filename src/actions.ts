@@ -6,20 +6,29 @@ class Actions {
     constructor(client: Client){
         this.client = client;
     }
-    private async playClock(channel: VoiceChannel, hour: number, analogHour: number){
+    private async playClock(channels: VoiceChannel[], hour: number, analogHour: number){
         let files = [__dirname  + `/audio/${analogHour}.opus`];
         if(hour == 12)
             files.push(__dirname  + `/audio/Bal.opus`);
         if(hour == 0 || hour == 24)
             files.push(__dirname  + `/audio/Pies.opus`);
-        await playAudio(this.client, channel, files);
-        await leaveChannel(this.client, channel);
+        for(let channel of channels){
+            if((await getMembers(channel)).length == 0)
+                continue;
+            await playAudio(this.client, channel, files);
+            await leaveChannel(this.client, channel);
+        }
     }
+    
 
-    private async playPopeHour(channel: VoiceChannel){
+    private async playPopeHour(channels: VoiceChannel[]){
         let files = [__dirname  + `/audio/Barka.opus`];
-        await playAudio(this.client, channel, files);
-        await leaveChannel(this.client, channel);
+        for(let channel of channels){
+            if((await getMembers(channel)).length == 0)
+                continue;
+            await playAudio(this.client, channel, files);
+            await leaveChannel(this.client, channel);
+        }
     }
 
     public async clock(){
@@ -28,21 +37,15 @@ class Actions {
         if(analogHour == 0)
             analogHour = 12;
         for(let guild of await getGuilds(this.client)){
-            for(let channel of await getAudioChannels(this.client, guild)){
-                if(channel.members.size == 0)
-                    continue;
-                this.playClock(channel, hour, analogHour);
-            }
+            let channels = await getAudioChannels(guild);
+            this.playClock(channels, hour, analogHour);
         }
     }
 
     public async popeHour(){
         for(let guild of await getGuilds(this.client)){
-            for(let channel of await getAudioChannels(this.client, guild)){
-                if(channel.members.size == 0)
-                    continue;
-                this.playPopeHour(channel);
-            }
+            let channels = await getAudioChannels(guild);
+            this.playPopeHour(channels);
         }
     }
 }

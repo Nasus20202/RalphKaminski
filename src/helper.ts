@@ -14,7 +14,7 @@ async function getGuilds(client: Client) : Promise<Guild[]>{
     return guilds;
 }
 
-async function getAudioChannels(client: Client, guild: Guild) : Promise<VoiceChannel[]>{
+async function getAudioChannels( guild: Guild) : Promise<VoiceChannel[]>{
     let channels = [];
     for(let channel of await guild.channels.fetch()){
         if(channel == null || channel[1] == null)
@@ -26,7 +26,7 @@ async function getAudioChannels(client: Client, guild: Guild) : Promise<VoiceCha
     return channels;
 }
 
-async function getMembers(client: Client, channel: VoiceChannel) : Promise<GuildMember[]>{
+async function getMembers(channel: VoiceChannel) : Promise<GuildMember[]>{
     let members = [];
     for(let member of channel.members){
         if(member == null || member[1] == null)

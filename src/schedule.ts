@@ -9,8 +9,8 @@ class Schedule {
     constructor(client: Client){
         this.client = client;
         this.actions = new Actions(client);
-        schedule.scheduleJob('0,10,20,30,40,50 * * * * *', async () => {
-            //await this.actions.clock();
+        schedule.scheduleJob('0,10,20,30,40,50 * * * *', async () => {
+            await this.actions.clock();
         });
         let rule = new schedule.RecurrenceRule();
         rule.hour = 21;

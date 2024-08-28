@@ -5,3 +5,4 @@ services:
     restart: always
     environment:
       - TOKEN=${TOKEN}
+      - TZ=Europe/Warsaw

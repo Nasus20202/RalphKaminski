@@ -1,5 +1,6 @@
 import { Client, Events, GatewayIntentBits, ActivityType } from 'discord.js';
 import { Schedule } from './schedule';
+import { Actions } from './actions';
 
 const token = process.env.TOKEN;
 

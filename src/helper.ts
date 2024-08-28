@@ -38,7 +38,9 @@ async function getMembers(channel: VoiceChannel): Promise<GuildMember[]> {
     return members;
 }
 
-async function playAudio(client: Client, channel: VoiceChannel, audio: string) {
+async function playAudio(channel: VoiceChannel, audio: string) {
+    console.log(`Playing '${audio}' in #${channel.name}`);
+
     const connection = joinVoiceChannel({
         channelId: channel.id,
         guildId: channel.guild.id,
@@ -56,7 +58,9 @@ async function playAudio(client: Client, channel: VoiceChannel, audio: string) {
     }
 }
 
-async function leaveChannel(client: Client, channel: VoiceChannel) {
+async function leaveChannel(channel: VoiceChannel) {
+    console.log(`Leaving #${channel.name}`);
+
     const connection = joinVoiceChannel({
         channelId: channel.id,
         guildId: channel.guild.id,

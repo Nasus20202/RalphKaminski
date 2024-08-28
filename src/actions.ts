@@ -10,8 +10,8 @@ class Actions {
         for (let channel of channels) {
             if ((await getMembers(channel)).length == 0)
                 continue;
-            await playAudio(this.client, channel, __dirname + `/audio/${analogHour}.opus`);
-            await leaveChannel(this.client, channel);
+            await playAudio(channel, __dirname + `/audio/${analogHour}.opus`);
+            await leaveChannel(channel);
         }
     }
 

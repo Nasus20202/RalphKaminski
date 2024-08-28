@@ -12,13 +12,6 @@ class Schedule {
         schedule.scheduleJob('0 * * * *', async () => {
             await this.actions.clock();
         });
-        let rule = new schedule.RecurrenceRule();
-        rule.hour = 21;
-        rule.minute = 37;
-        rule.tz = 'Europe/Warsaw';
-        schedule.scheduleJob(rule, async () => {
-            await this.actions.popeHour();
-        });
     }
 }
 

@@ -1,6 +1,7 @@
-const { Client, Events, GatewayIntentBits, ActivityType } = require('discord.js');
-const { token } = require('./config.json');
-const { Schedule } = require('./schedule');
+import { Client, Events, GatewayIntentBits, ActivityType } from 'discord.js';
+import { Schedule } from './schedule';
+
+const token = process.env.TOKEN;
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 

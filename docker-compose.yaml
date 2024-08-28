@@ -1,0 +1,7 @@
+services:
+  ralph-kaminski:
+    build: .
+    container_name: ralph-kaminski
+    restart: always
+    environment:
+      - TOKEN=${TOKEN}

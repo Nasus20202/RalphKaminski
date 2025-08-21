@@ -1,14 +1,17 @@
-import { Client } from "discord.js";
 import { Actions } from "./actions";
 import schedule from "node-schedule";
 
 class Schedule {
-  client: Client;
   actions: Actions;
-  constructor(client: Client) {
-    this.client = client;
-    this.actions = new Actions(client);
-    schedule.scheduleJob("0 * * * *", async () => {
+  cron: string;
+
+  constructor(actions: Actions, cron: string = "0 * * * *") {
+    this.actions = actions;
+    this.cron = cron;
+  }
+
+  start() {
+    schedule.scheduleJob(this.cron, async () => {
       await this.actions.clock();
     });
   }

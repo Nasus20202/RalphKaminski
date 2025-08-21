@@ -15,7 +15,7 @@ class Actions {
   private async playClock(
     channels: VoiceChannel[],
     hour: number,
-    analogHour: number,
+    analogHour: number
   ) {
     for (let channel of channels) {
       if ((await getMembers(channel)).length == 0) continue;

@@ -1,5 +1,6 @@
 import { Client, Events, GatewayIntentBits, ActivityType } from "discord.js";
 import { Schedule } from "./schedule";
+import { Actions } from "./actions";
 
 const token = process.env.TOKEN;
 
@@ -9,17 +10,15 @@ const client = new Client({
 
 client.once(Events.ClientReady, (c: any) => {
   console.log(`Logged in as ${c.user.tag}`);
-  const schedule = new Schedule(c);
-  let update = 1;
-  setInterval(async () => {
-    if (update > 3) update = 1;
-    let activity = "";
-    for (let i = 0; i < update; i++) {
-      activity += "Hau";
-      if (i < update - 1) activity += " ";
-    }
+  new Schedule(new Actions(c)).start();
+
+  const activities = ["Hau", "Hau Hau", "Hau Hau Hau"];
+  let currentIndex = 0;
+
+  setInterval(() => {
+    const activity = activities[currentIndex];
     c.user.setActivity(activity, { type: ActivityType.Listening });
-    update++;
+    currentIndex = (currentIndex + 1) % activities.length;
   }, 4000);
 });
 

@@ -53,7 +53,7 @@ class StatusActions implements IScheduleActions {
     });
     const timeLeft = 60 - new Date().getMinutes();
 
-    const message = `${time} | ${timeLeft === 0 ? "Hau hau hau" : `Hau za ${timeLeft} min`}`;
+    const message = `${time} | ${timeLeft === 60 ? "Hau hau hau" : `Hau za ${timeLeft} min`}`;
     this.client.user?.setActivity(message, {
       type: ActivityType.Watching,
     });

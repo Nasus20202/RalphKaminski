@@ -6,7 +6,7 @@ RUN apk add --no-cache ffmpeg
 
 COPY *.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY src ./src
 

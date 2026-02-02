@@ -1,11 +1,14 @@
-import { Actions } from "./actions";
 import schedule from "node-schedule";
 
+interface IScheduleActions {
+  clock(): Promise<void>;
+}
+
 class Schedule {
-  actions: Actions;
+  actions: IScheduleActions;
   cron: string;
 
-  constructor(actions: Actions, cron: string = "0 * * * *") {
+  constructor(actions: IScheduleActions, cron: string) {
     this.actions = actions;
     this.cron = cron;
   }
@@ -17,4 +20,4 @@ class Schedule {
   }
 }
 
-export { Schedule };
+export { Schedule, IScheduleActions };

@@ -2,6 +2,7 @@ import {
   joinVoiceChannel,
   createAudioPlayer,
   createAudioResource,
+  AudioPlayerStatus,
 } from "@discordjs/voice";
 import {
   Client,
@@ -54,11 +55,11 @@ async function playAudio(channel: VoiceChannel, audio: string) {
   const player = createAudioPlayer();
   connection.subscribe(player);
   const resource = await createAudioResource(audio);
-  while (player.state.status != "idle") {
+  while (player.state.status != AudioPlayerStatus.Idle) {
     await new Promise((resolve) => setTimeout(resolve, 500));
   }
   player.play(resource);
-  while (player.state.status != "idle") {
+  while (player.state.status != AudioPlayerStatus.Idle) {
     await new Promise((resolve) => setTimeout(resolve, 500));
   }
 }

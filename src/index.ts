@@ -1,6 +1,6 @@
-import { Client, Events, GatewayIntentBits, ActivityType } from "discord.js";
+import { Client, Events, GatewayIntentBits } from "discord.js";
 import { Schedule } from "./schedule";
-import { Actions } from "./actions";
+import { BarkActions, StatusActions } from "./actions";
 
 const token = process.env.TOKEN;
 
@@ -10,16 +10,13 @@ const client = new Client({
 
 client.once(Events.ClientReady, (c: any) => {
   console.log(`Logged in as ${c.user.tag}`);
-  new Schedule(new Actions(c)).start();
+  const barkActions = new BarkActions(c);
+  const statusActions = new StatusActions(c);
 
-  const activities = ["Hau", "Hau Hau", "Hau Hau Hau"];
-  let currentIndex = 0;
+  new Schedule(barkActions, "0 * * * *").start();
+  new Schedule(statusActions, "* * * * *").start();
 
-  setInterval(() => {
-    const activity = activities[currentIndex];
-    c.user.setActivity(activity, { type: ActivityType.Listening });
-    currentIndex = (currentIndex + 1) % activities.length;
-  }, 4000);
+  statusActions.clock();
 });
 
 client.login(token);

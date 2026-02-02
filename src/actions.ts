@@ -1,4 +1,4 @@
-import { Client, VoiceChannel } from "discord.js";
+import { ActivityType, Client, VoiceChannel } from "discord.js";
 import {
   getGuilds,
   getAudioChannels,
@@ -6,19 +6,23 @@ import {
   playAudio,
   leaveChannel,
 } from "./helper";
+import { IScheduleActions } from "./schedule";
 
-class Actions {
+class BarkActions implements IScheduleActions {
   client: Client;
+
   constructor(client: Client) {
     this.client = client;
   }
+
   private async playClock(
     channels: VoiceChannel[],
     hour: number,
-    analogHour: number
+    analogHour: number,
   ) {
     for (let channel of channels) {
       if ((await getMembers(channel)).length == 0) continue;
+      console.log(`Playing clock for hour ${hour} in #${channel.name}`);
       await playAudio(channel, __dirname + `/audio/${analogHour}.opus`);
       await leaveChannel(channel);
     }
@@ -35,4 +39,25 @@ class Actions {
   }
 }
 
-export { Actions };
+class StatusActions implements IScheduleActions {
+  client: Client;
+
+  constructor(client: Client) {
+    this.client = client;
+  }
+
+  public async clock() {
+    const time = new Date().toLocaleTimeString("pl-PL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const timeLeft = 60 - new Date().getMinutes();
+
+    const message = `${time} | ${timeLeft === 0 ? "Hau hau hau" : `Hau za ${timeLeft} min`}`;
+    this.client.user?.setActivity(message, {
+      type: ActivityType.Watching,
+    });
+  }
+}
+
+export { BarkActions, StatusActions };

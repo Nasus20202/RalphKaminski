@@ -10,11 +10,15 @@
     "@types/node": "^24.0.0",
     "@types/node-schedule": "^2.1.8",
     "prettier": "^3.8.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^6.0.0"
+    "tsx": "^4.19.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.0"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "format": "prettier --write ."
+    "start": "tsx src/index.ts",
+    "typecheck": "npx tsc --noEmit",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   }
 }

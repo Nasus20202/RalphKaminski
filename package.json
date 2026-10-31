@@ -7,7 +7,7 @@
     "node-schedule": "^2.1.1"
   },
   "devDependencies": {
-    "@types/node": "26.6.5",
+    "@types/node": "26.6.6",
     "@types/node-schedule": "2.1.8",
     "prettier": "3.9.10",
     "tsx": "4.23.15",
